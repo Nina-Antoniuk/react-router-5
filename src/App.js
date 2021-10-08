@@ -1,5 +1,8 @@
 import { Component } from 'react';
 import './App.css';
+import Section from './components/Section';
+import Feedback from './components/Feedback';
+import Notification from './components/Notification';
 import Statistics from './components/Statistics';
 
 class App extends Component {
@@ -33,36 +36,25 @@ class App extends Component {
     const { countTotalFeedback, countPositiveFeedbackPercentage } = this;
 
     return (
-      <section className="section">
-        <h1 className="title">Please leave feedback</h1>
-        <ul className="list">
-          {Object.keys(this.state).map(key => {
-            return (
-              <li className="listItem" key={key}>
-                <button
-                  className="reaction"
-                  onClick={this.clickHandler}
-                  type="button"
-                >
-                  {key}
-                </button>
-              </li>
-            );
-          })}
-        </ul>
+      <div className="wrapper">
+        <Section title="Please leave feedback">
+          <Feedback options={this.state} onLeaveFeedback={this.clickHandler} />
+        </Section>
 
-        {countTotalFeedback() ? (
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={countTotalFeedback}
-            positivePercentage={countPositiveFeedbackPercentage}
-          />
-        ) : (
-          ''
-        )}
-      </section>
+        <Section title="Statistics">
+          {countTotalFeedback() ? (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={countTotalFeedback}
+              positivePercentage={countPositiveFeedbackPercentage}
+            />
+          ) : (
+            <Notification message="No feedback given" />
+          )}
+        </Section>
+      </div>
     );
   }
 }
