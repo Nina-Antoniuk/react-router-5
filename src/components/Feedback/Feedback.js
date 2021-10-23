@@ -1,18 +1,19 @@
-function Feedback(props) {
-  const { options, onLeaveFeedback } = props;
+import { PropTypes } from 'prop-types';
+import s from './Feedback.module.css';
 
+function Feedback({ states, onLeaveFeedback }) {
   return (
     <>
-      <ul className="list">
-        {Object.keys(options).map(key => {
+      <ul className={s.list}>
+        {states.map(state => {
           return (
-            <li className="listItem" key={key}>
+            <li className="listItem" key={state}>
               <button
-                className="reaction"
-                onClick={onLeaveFeedback}
+                className={s.reaction}
+                onClick={e => onLeaveFeedback(e)}
                 type="button"
               >
-                {key}
+                {state}
               </button>
             </li>
           );
@@ -21,5 +22,10 @@ function Feedback(props) {
     </>
   );
 }
+
+Feedback.propTypes = {
+  states: PropTypes.arrayOf(PropTypes.string),
+  onLeaveFeedback: PropTypes.func,
+};
 
 export default Feedback;
