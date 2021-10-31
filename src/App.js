@@ -1,8 +1,16 @@
+import { lazy, Suspense } from 'react';
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
-import HomePage from './views/HomePage';
-import MoviesPage from './views/MoviesPage';
-import MovieDetailsPage from './views/MovieDetailsPage';
+import Loader from 'react-loader-spinner';
+const HomePage = lazy(() =>
+  import('./views/HomePage' /* webpackChunkName: 'Home Page'*/),
+);
+const MoviesPage = lazy(() =>
+  import('./views/MoviesPage' /* webpackChunkName: 'Movies Page'*/),
+);
+const MovieDetailsPage = lazy(() =>
+  import('./views/MovieDetailsPage' /* webpackChunkName: 'Details Page'*/),
+);
 
 function App() {
   return (
@@ -31,21 +39,28 @@ function App() {
           </li>
         </ul>
       </nav>
-
-      <Switch>
-        <Route exact path="/">
-          <HomePage />
-        </Route>
-        <Route exact path="/movies">
-          <MoviesPage />
-        </Route>
-        <Route exact path="/movies/:moviesId">
-          <MovieDetailsPage />
-        </Route>
-        <Route>
-          <Redirect exact to="/" />
-        </Route>
-      </Switch>
+      <Suspense
+        fallback={
+          <div className="Loader">
+            <Loader type="Grid" color="#8d6675" height={200} width={200} />
+          </div>
+        }
+      >
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+          <Route exact path="/movies">
+            <MoviesPage />
+          </Route>
+          <Route exact path="/movies/:moviesId">
+            <MovieDetailsPage />
+          </Route>
+          <Route>
+            <Redirect exact to="/" />
+          </Route>
+        </Switch>
+      </Suspense>
     </div>
   );
 }

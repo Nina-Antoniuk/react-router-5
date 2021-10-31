@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import {
   BrowserRouter as Router,
   NavLink,
@@ -12,8 +12,12 @@ import {
 import Loader from 'react-loader-spinner';
 import s from './MovieDetailsPage.module.css';
 import { fetchMovieById } from '../../services/fetchMovies';
-import Casts from '../../components/Casts';
-import Reviews from '../../components/Reviews';
+const Casts = lazy(() =>
+  import('../../components/Casts' /* webpackChunkName: 'Casts' */),
+);
+const Reviews = lazy(() =>
+  import('../../components/Reviews' /* webpackChunkName: 'Reviews' */),
+);
 
 function MovieDetailsPage() {
   const [film, setFilm] = useState({});
@@ -102,15 +106,22 @@ function MovieDetailsPage() {
               </NavLink>
             </li>
           </ul>
-
-          <Switch>
-            <Route path={`${url}/casts`}>
-              <Casts id={params.moviesId} />
-            </Route>
-            <Route path={`${url}/reviews`}>
-              <Reviews id={params.moviesId} />
-            </Route>
-          </Switch>
+          <Suspense
+            fallback={
+              <div className="Loader">
+                <Loader type="Grid" color="#8d6675" height={200} width={200} />
+              </div>
+            }
+          >
+            <Switch>
+              <Route path={`${url}/casts`}>
+                <Casts id={params.moviesId} />
+              </Route>
+              <Route path={`${url}/reviews`}>
+                <Reviews id={params.moviesId} />
+              </Route>
+            </Switch>
+          </Suspense>
         </Router>
       </div>
     );

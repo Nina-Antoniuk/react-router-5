@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { fetchCredits } from '../../services/fetchMovies';
 
 function Casts(props) {
@@ -27,5 +28,9 @@ function Casts(props) {
     </>
   );
 }
+
+Casts.propTypes = {
+  id: PropTypes.string,
+};
 
 export default Casts;
