@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
+import s from './MoviesPage.module.css';
 import { fetchMoviesByName } from '../../services/fetchMovies';
 
 function MoviesPage() {
@@ -29,10 +30,10 @@ function MoviesPage() {
   };
 
   return (
-    <>
+    <div className={s.MoviesPage}>
       <form>
-        <input type="text" onChange={handleChange} />
-        <button type="submit" onClick={handleSubmit}>
+        <input className={s.input} type="text" onChange={handleChange} />
+        <button className={s.button} type="submit" onClick={handleSubmit}>
           Search
         </button>
       </form>
@@ -41,7 +42,7 @@ function MoviesPage() {
           <Loader type="Grid" color="#8d6675" height={200} width={200} />
         </div>
       ) : (
-        <ul>
+        <ul className={s.list}>
           {err ? (
             <li>
               <b>Opps... something went wrong, nothing was found!</b>
@@ -51,8 +52,9 @@ function MoviesPage() {
               return (
                 <li key={el.id}>
                   <Link
+                    className={s.listItem}
                     to={{
-                      pathname: `/${el.id}`,
+                      pathname: `/movies/${el.id}`,
                       state: {
                         from: { location, label: `back to search` },
                       },
@@ -66,7 +68,7 @@ function MoviesPage() {
           )}
         </ul>
       )}
-    </>
+    </div>
   );
 }
 export default MoviesPage;

@@ -1,0 +1,46 @@
+.MovieDetailsPage {
+  padding-top: 20px;
+  padding-left: 30px;
+}
+
+.goBack {
+  display: block;
+  padding: 5px 10px;
+  border: 1px solid #8d6675;
+  background-color: transparent;
+  color: #8d6675;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.goBack:hover,
+.goBack:focus {
+  background-color: #8d6675;
+  color: #fff;
+}
+
+.movieInfo {
+  display: flex;
+}
+
+.image {
+  width: 200px;
+  height: 250px;
+  margin-right: 50px;
+  background-color: #eee;
+}
+
+.list {
+  padding: 0;
+  list-style-position: inside;
+}
+
+.link {
+  text-decoration: none;
+  color: #000;
+}
+
+.activeLink {
+  color: #8d6675;
+}

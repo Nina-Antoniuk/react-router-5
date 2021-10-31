@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Link, useMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import Loader from 'react-loader-spinner';
-// import s from './HomePage.module.css';
+import s from './HomePage.module.css';
 import { fetchTrendMovies } from '../../services/fetchMovies';
 
 const STATUS = {
@@ -16,15 +16,11 @@ function HomePage() {
   const [trendsMovies, setTrendsMovies] = useState([]);
   const [status, setStatus] = useState(STATUS.init);
   const location = useLocation();
-  // const match = useMatch();
-  // console.log(match)
-  // console.log('location', location);
 
   useEffect(() => {
     setStatus(STATUS.pending);
     fetchTrendMovies()
       .then(data => {
-        // console.log('homePage', data.results)
         setTrendsMovies(data.results);
         setStatus(STATUS.resolve);
       })
@@ -55,13 +51,14 @@ function HomePage() {
 
   if (status === STATUS.resolve) {
     return (
-      <>
+      <div className={s.HomePage}>
         <h2>Trending today</h2>
-        <ul>
+        <ul className={s.list}>
           {trendsMovies.map(movie => {
             return (
               <li key={movie.id}>
                 <Link
+                  className={s.listItem}
                   to={{
                     pathname: `/movies/${movie.id}`,
                     state: {
@@ -69,13 +66,13 @@ function HomePage() {
                     },
                   }}
                 >
-                  {movie.title ?? movie.name},{movie.id}
+                  {movie.title ?? movie.name}
                 </Link>
               </li>
             );
           })}
         </ul>
-      </>
+      </div>
     );
   }
 }

@@ -1,0 +1,41 @@
+.MoviesPage {
+  padding-left: 30px;
+}
+
+.input {
+}
+
+.button {
+  display: inline-block;
+  padding: 5px 10px;
+  border: 1px solid #8d6675;
+  background-color: transparent;
+  color: #8d6675;
+  margin-left: 20px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+
+.button:hover,
+.button:focus {
+  background-color: #8d6675;
+  color: #fff;
+}
+
+.list {
+  padding: 0;
+  list-style-position: inside;
+}
+
+.listItem {
+  display: inline-block;
+  padding: 5px 0;
+  text-decoration: none;
+  color: #000;
+}
+
+.listItem:hover,
+.listItem:focus {
+  color: #8d6675;
+}

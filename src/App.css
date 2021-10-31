@@ -8,8 +8,11 @@
 
 .NavList {
   display: flex;
-  padding: 0;
+  justify-content: space-around;
+  padding-left: 0;
+  padding-bottom: 20px;
   list-style-type: none;
+  border-bottom: 1px solid #8d6675;
 }
 
 .NavLink {
@@ -20,10 +23,6 @@
   text-decoration: none;
 }
 
-.NavLink:first-child {
-  margin-right: 50px;
-}
-
 .activeNavLink {
-  color: rgb(78, 14, 14);
+  color: #8d6675;
 }
