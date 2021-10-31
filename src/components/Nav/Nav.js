@@ -19,11 +19,22 @@ function Nav() {
           <NavLink
             className={s.NavLink}
             activeClassName={s.activeNavLink}
+            exact
             to="/movies"
           >
             Movies
           </NavLink>
         </li>
+        {/* <li>
+          <NavLink
+            className={s.NavLink}
+            activeClassName={s.activeNavLink}
+            exact
+            to="/test"
+          >
+           Test nesting
+          </NavLink>
+        </li> */}
       </ul>
     </nav>
   );
