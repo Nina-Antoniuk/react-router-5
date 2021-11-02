@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
 import Loader from 'react-loader-spinner';
@@ -13,6 +13,10 @@ const MovieDetailsPage = lazy(() =>
 );
 
 function App() {
+  useEffect(() => {
+    return localStorage.setItem('searchMoviesList', '');
+  }, []);
+
   return (
     <div>
       <nav>

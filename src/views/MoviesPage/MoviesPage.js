@@ -1,32 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Loader from 'react-loader-spinner';
 import s from './MoviesPage.module.css';
 import { fetchMoviesByName } from '../../services/fetchMovies';
 
 function MoviesPage() {
+  const [inputValue, setInputValue] = useState('');
   const [searchValue, setSearchValue] = useState('');
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [err, setErr] = useState(false);
   const location = useLocation();
 
-  const handleChange = e => {
-    setSearchValue(e.target.value);
-  };
+  useEffect(() => {
+    if (localStorage.getItem('searchMoviesList')) {
+      setMovies(JSON.parse(localStorage.getItem('searchMoviesList')));
+    }
+  }, []);
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  useEffect(() => {
+    if (!searchValue) return;
+
     setIsLoading(true);
     fetchMoviesByName(searchValue)
       .then(data => {
         setMovies(data.results);
+        localStorage.setItem('searchMoviesList', JSON.stringify(data.results));
         setIsLoading(false);
       })
       .catch(err => {
         setErr(true);
         setIsLoading(false);
       });
+  }, [searchValue]);
+
+  const handleChange = e => {
+    setInputValue(e.target.value);
+  };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    setSearchValue(inputValue);
+    setInputValue('');
   };
 
   return (
@@ -49,6 +64,8 @@ function MoviesPage() {
             </li>
           ) : (
             movies.map(el => {
+              // console.log('el', {id: el.id, title: el.title ?? el.name});
+              // localStorage.setItem('searchMoviesList', JSON.stringify({id: el.id, title: el.title ?? el.name}));
               return (
                 <li key={el.id}>
                   <Link
@@ -71,4 +88,5 @@ function MoviesPage() {
     </div>
   );
 }
+
 export default MoviesPage;
