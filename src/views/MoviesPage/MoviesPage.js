@@ -64,8 +64,6 @@ function MoviesPage() {
             </li>
           ) : (
             movies.map(el => {
-              // console.log('el', {id: el.id, title: el.title ?? el.name});
-              // localStorage.setItem('searchMoviesList', JSON.stringify({id: el.id, title: el.title ?? el.name}));
               return (
                 <li key={el.id}>
                   <Link
